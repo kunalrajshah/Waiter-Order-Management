@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Output from "./Output";
 import Input from "./Input";
+import Select from "./Select";
 
 function App() {
   const [orderID, setOrderId] = useState("");
@@ -19,13 +20,12 @@ function App() {
       setOrders(savedOrders);
     }
   }, []);
-  
+
   // Save data to local storage whenever orders change
   useEffect(() => {
     localStorage.setItem("orders", JSON.stringify(orders));
   }, [orders]);
 
-  
   // Taking Inputs.
   const orderIDHandler = (event) => {
     setOrderId(event.target.value);
@@ -77,22 +77,11 @@ function App() {
           value={InputDish}
           onChange={InputDishHandler}
         />
-        <select
-          name="table"
-          id="table"
-          value={InputTable}
-          onChange={InputTableHandler}
-        >
-          <option value="choose Table">Choose a Table</option>
-          <option value="Table 1">Table 1</option>
-          <option value="Table 2">Table 2</option>
-          <option value="Table 3">Table 3</option>
-        </select>
+        <Select value={InputTable} onChange={InputTableHandler} />
         <button style={{ cursor: "pointer" }} onClick={addToBillHandler}>
           Add to bill
         </button>
       </form>
-
       <Output data={orders} set={setOrders} />
     </div>
   );
